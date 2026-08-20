@@ -1,0 +1,8 @@
+# dsh-updater bundle 补丁：被 package.json 的 dsh.bundle 引用。
+# 使插件可通过标准方式安装（如 `dsh plugin --profile web add <本包>` 或市场一键安装），
+# 装完自动成为 profile 层，无需手动改 cordis.patch.yml。
+# 注意：本文件是"插件包内的补丁"（dsh.bundle），与 profile 层的 cordis.patch.yml 是两回事。
+- insert:
+    - id: dsh-updater
+      name: '@deepseek-ai/dsh-updater'
+      config: {}
