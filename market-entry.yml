@@ -1,0 +1,20 @@
+# dsh-updater 市场条目样板 —— 提交到 awesome-dsh-plugin 时用
+#
+# 使用方式：
+#   1. fork https://github.com/awesome-dsh-plugin/awesome-dsh-plugin
+#   2. 在 data/plugins/ 下新建 data/plugins/fengwuxin__dsh-updater.yml，内容为下方条目
+#   3. 在仓库根执行: npm ci && node scripts/generate-readme.mjs（重新生成 README）
+#   4. 提交并提 PR（一个 PR 最多 3 条）
+#
+# 注意：
+#   - url 必须与仓库完全一致
+#   - 只改你自己的条目，别动既有条目
+#   - 仓库 package.json 已声明 dsh.bundle（✓），且有 dsh.client（✓）
+#   - 仓库需 ≥1 天、≥10 commits，并添加 dsh-plugin topic
+
+url: https://github.com/fengwuxin/dsh-updater
+name: fengwuxin/dsh-updater
+category: dev
+description:
+  en: 'Daily npm update check that surfaces an upgrade button in the Web GUI top-right corner when a newer DeepSeek Harness release is available.'
+  zh: '每天 10 点自动检查 npm 上 DeepSeek Harness 的新版本，发现更新时在网页右上角显示升级按钮，点击一键升级并自动重启。'
