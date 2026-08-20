@@ -1,0 +1,43 @@
+{
+  "name": "@deepseek-ai/dsh-updater",
+  "version": "0.1.0",
+  "description": "DSH 升级助手：每天早上 10 点检查 npm 新版本，在 Web GUI 右上角提示并执行升级。",
+  "keywords": ["dsh", "deepseek-harness", "plugin", "update", "upgrade", "auto-update", "dsh-updater"],
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "install.sh",
+    "publish.sh"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fengwuxin/dsh-updater.git"
+  },
+  "homepage": "https://github.com/fengwuxin/dsh-updater#readme",
+  "dependencies": {},
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-primitives"
+      ]
+    }
+  }
+}
