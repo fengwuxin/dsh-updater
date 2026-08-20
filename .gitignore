@@ -1,0 +1,5 @@
+# 打包产物与本地备份不入库
+*.tgz
+*.tar.gz
+*.tmp
+.DS_Store
