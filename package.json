@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-updater",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DSH 升级助手：每天早上 10 点检查 npm 新版本，在 Web GUI 右上角提示并执行升级。",
   "keywords": ["dsh", "deepseek-harness", "plugin", "update", "upgrade", "auto-update", "dsh-updater"],
   "license": "MIT",

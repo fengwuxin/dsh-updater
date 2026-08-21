@@ -42,7 +42,10 @@ patch_rebuild() {
   python3 - "$PATCH_FILE" "$1" "$PLUGIN_NAME" <<'PY'
 import sys, re
 path, action, entry_name = sys.argv[1], sys.argv[2], sys.argv[3]
-text = open(path, encoding="utf-8").read()
+try:
+    text = open(path, encoding="utf-8").read()
+except FileNotFoundError:
+    text = ""  # 全新机器：补丁文件尚未创建，视为空
 # 按"行首无缩进的 '-'"拆分顶层列表项（注释与空行归入前面的项）
 lines = text.splitlines(keepends=True)
 items, cur = [], []
@@ -85,7 +88,7 @@ if [ "$MODE" = "status" ]; then
   echo "插件目录: $PLUGIN_DIR"
   [ -L "$LINK_CLI" ] && echo "CLI 链接:     已安装 -> $(readlink "$LINK_CLI")" || echo "CLI 链接:     未安装"
   [ -L "$LINK_PROFILE" ] && echo "Profile 链接: 已安装 -> $(readlink "$LINK_PROFILE")" || echo "Profile 链接: 未安装"
-  patch_rebuild install >/dev/null 2>&1 || true  # 无害探测
+  if [ -f "$PATCH_FILE" ]; then patch_rebuild install >/dev/null 2>&1 || true; fi  # 无害探测（文件不存在时不创建）
   grep -q "id: dsh-updater" "$PATCH_FILE" 2>/dev/null && echo "补丁条目:     已配置" || echo "补丁条目:     未配置"
   exit 0
 fi
