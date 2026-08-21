@@ -93,12 +93,19 @@ EOF
 
 # 5) 预检 + 发布
 cd "$TMP"
+REGISTRY="https://registry.npmjs.org"
+# 若提供 NPM_TOKEN 环境变量，写入本目录 .npmrc（只在本次发布目录生效，不动全局配置）
+if [ -n "${NPM_TOKEN:-}" ]; then
+  printf '//registry.npmjs.org/:_authToken=${NPM_TOKEN}\nregistry=%s\n' "$REGISTRY" > .npmrc
+  echo "== 已使用 NPM_TOKEN 认证（token 不落全局）=="
+else
+  echo "== 无 NPM_TOKEN，使用 npm 已登录会话（npm whoami 需返回用户名）=="
+fi
 echo
 echo "== 打包预览 =="
-npm pack --dry-run
-
+npm pack --dry-run --registry "$REGISTRY"
 echo
-echo "== 待发布内容 ==="
+echo "== 待发布内容 =="
 ls -la "$TMP"
 echo "package.json 关键字段:"
 python3 -c "import json;d=json.load(open('package.json'));print('  name:',d['name']);print('  version:',d['version']);print('  repository:',d['repository']['url']);print('  dsh.bundle:',d['dsh']['bundle']);print('  dsh.client:',d['dsh']['client']['platform'])"
@@ -111,8 +118,8 @@ if [ "$DRY_RUN" = "--dry-run" ]; then
 fi
 
 echo
-echo "== 发布中 =="
-npm publish --access public
+echo "== 发布中（官方 registry）=="
+npm publish --access public --registry "$REGISTRY"
 echo
 echo "✅ 已发布: https://www.npmjs.com/package/$PKG_NAME"
 echo
